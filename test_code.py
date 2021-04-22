@@ -10,4 +10,3 @@ topics, _ = topic_model.fit_transform(docs)
 print("transform success")
 print(topic_model.get_topic_freq().head())
 print(topic_model.get_topic(43))
-
