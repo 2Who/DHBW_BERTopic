@@ -1,12 +1,23 @@
 from bertopic import BERTopic
-from sklearn.datasets import fetch_20newsgroups
-print("import success")
+import pandas as pd
 
-docs = fetch_20newsgroups(subset='test',  remove=('headers', 'footers', 'quotes'))['data']
+#CSV einlesen in ein Dataframe
+df = pd.read_csv('C:/Users/nicol/Desktop/Daten/data.csv', dtype=str)
 
-topic_model = BERTopic()
-print("going to transform")
-topics, _ = topic_model.fit_transform(docs)
-print("transform success")
-print(topic_model.get_topic_freq().head())
-print(topic_model.get_topic(43))
+#Spalte Body in eine Liste einfügen
+docs = df['body'].tolist()
+print("List is ready")
+
+#Liste ausgeben
+print(docs)
+
+#Model erstellen
+model = BERTopic(language="german")
+print("Transform")
+
+#Liste ins Model geben
+topics, probs = model.fit_transform(docs)
+print("Transform success")
+
+#Topics ausgeben lassen
+print(model.get_topic_freq())
