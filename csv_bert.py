@@ -2,6 +2,7 @@ from bertopic import BERTopic
 import numpy as np
 import pandas as pd
 import os
+import time
 # from sklearn.datasets import fetch_20newsgroups
 print("import success")
 #--------------------------------------------------------
@@ -15,10 +16,21 @@ def main():
     # print(len(docs))
 
     document = CreateDocFromCSV()
+    for x in range(0, len(document)):
+        document[x] = str(document[x])
     bertModel = BERTopic()
     print("going to transform")
-    topics, _ = bertModel.fit_transform(document)
-    print("transform success")
+    transformTime = time.perf_counter()
+    try:
+        topics, _ = bertModel.fit_transform(document)
+        transformTime = time.perf_counter() - transformTime
+        transformTime = transformTime / 60
+        print(f"Transformation success! Duration:{transformTime:0.4f} minutes")
+    except Exception:
+        print(Exception)
+        transformTime = time.perf_counter() - transformTime
+        transformTime = transformTime / 60
+        print(f"Transformation failed! Duration:{transformTime:0.4f} minutes")
     ShowTopics(bertModel)
 
 
@@ -31,7 +43,7 @@ def CreateDocFromCSV():
     pathToFile = os.path.join(dirname + "/", "Trainingsdaten" + "/", "data.csv")
     # print(pathToFile)
 
-    dataFrame = pd.read_csv(pathToFile)
+    dataFrame = pd.read_csv(pathToFile, dtype=str)
     docs = dataFrame['body'].tolist()
     # docs = list(df.loc["url"].values)
     # docs = list(df.loc['url', 'title', 'pub_date', 'lead', 'body', 'crawl_date', 'language', 'images', 'tags', 'source', 'elastic_id', 'authors', 'number_of_comments', 'sections', 'edition', 'pub_date_short', 'year_month'].values)
