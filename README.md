@@ -14,5 +14,24 @@ pip install pytorch-nlp, pip install bertopic
 7. weiteres Package ist protobuf - sonst Traceback und Importerror - pip install protobuf
 
 #Einrichtung ohne Anaconda auf Mac/Linux
+Version Python 3.7.1 oder höher benötigt.
+
+$ brew install bertopic
 
 #Verwendung und Ausführung des Beispiel-Codes
+$ from bertopic import BERTopic
+
+$ import pandas as pd
+
+$ df = pd.read_csv('Trainingsdaten/data.csv', dtype=str)
+
+$ docs = df['body'].tolist()
+
+$ model = BERTopic(language="german")
+
+$ topics, probs = model.fit_transform(docs)
+
+#Sammlung der Models
+Vanilla Model
+https://drive.google.com/drive/u/0/folders/1yLuXdentikQGQ0KJ_iNTOmShsxomchJI
+
