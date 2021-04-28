@@ -2,7 +2,7 @@ from bertopic import BERTopic
 import pandas as pd
 
 #CSV einlesen in ein Dataframe
-df = pd.read_csv('C:/Users/nicol/Desktop/Daten/data.csv', dtype=str)
+df = pd.read_csv('Trainingsdaten/data.csv', dtype=str)
 
 #Spalte Body in eine Liste einfügen
 docs = df['body'].tolist()
