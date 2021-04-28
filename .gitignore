@@ -135,3 +135,6 @@ dmypy.json
 
 # local models folder (contents too big)
 models/
+
+# visual studio code settings
+.vscode/
