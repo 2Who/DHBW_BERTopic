@@ -4,7 +4,7 @@
 #Einrichtung mit Anaconda auf Windows
 
 Vorraussetzung: Microsoft C++ Build Tools sollte installiert sein, Python Komplett deinstallieren
-1. Anaconda herunterladen
+1. Anaconda herunterladen //Python 3.9 ist Nötig!!
 2. mit Anaconda ein Environment aufsetzen - conda create --name myenv
 3. Environment aktivieren - conda activate myenv
 4. pip installieren - conda install pip
@@ -12,6 +12,7 @@ Vorraussetzung: Microsoft C++ Build Tools sollte installiert sein, Python Komple
 6. Packages und BERT installieren - pip install pytorch-transformers,
 pip install pytorch-nlp, pip install bertopic
 7. weiteres Package ist protobuf - sonst Traceback und Importerror - pip install protobuf
+
 
 #Einrichtung ohne Anaconda auf Mac/Linux
 Version Python 3.7.1 oder höher benötigt.
