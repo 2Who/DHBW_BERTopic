@@ -1,9 +1,10 @@
 # DHBW_BERTopic
 1. Einleitung
+TODO: Projektvorstellung
 
-1.1 Einrichtung mit Anaconda auf Windows
-
-1.1.1 Manuelles Erstellen der Environment:
+2. Einrichtung der Anaconda Environment
+2.1 Einrichtung mit Anaconda auf Windows
+2.1.1 Manuelles Erstellen der Environment:
   !!!Vorraussetzung: Microsoft C++ Build Tools sollte installiert sein, Python Komplett deinstallieren!!!
   1. Anaconda herunterladen
   2. mit Anaconda ein Environment aufsetzen - conda create --name myenv
@@ -12,11 +13,15 @@
   5. PATH Variablen einfügen (zur Sicherheit) - siehe Anhang
   6. Packages und BERT installieren - pip install pytorch-transformers pytorch-nlp protobuf bertopic
 
-1.1.2 Erstellen der Environment mit dem .yml File:
+2.1.2 Erstellen der Environment mit dem .yml File:
   1. Conda Prompt öffen
   2. Zur .yml Datei navigieren
   3. Environment erstellen - conda env create -f bert39nonvisual.yml
 
-#Einrichtung ohne Anaconda auf Mac/Linux
+2.2 Einrichtung ohne Anaconda auf Mac/Linux
 
-#Verwendung und Ausführung des Beispiel-Codes
+3. Verwendung und Ausführung des Beispiel-Codes
+  Pfad zur python.exe eines Environemts in der Conda Prompt:
+  activate myenv
+  where python
+  In der IDE den Interpreter ändern und die von conda angezeigte python.exe auswählen.
