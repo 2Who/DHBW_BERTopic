@@ -132,3 +132,6 @@ dmypy.json
 .DS_Store
 
 /venv
+
+# models folder (contets to big)
+models/
