@@ -10,6 +10,7 @@ print("import success")
 # Constants
 #--------------------------------------------------------
 PROGRAM_PATH = os.path.dirname(__file__)
+PATH_TO_MODEL_VANILLA_GERMAN = "/models/vanillaModel"
 
 def main():
     # Old way to create document from 20newsgroups
@@ -20,7 +21,8 @@ def main():
     # transformedModel = TransformModel(csvDocument)
 
     # import an existing model
-    transformedModel = BERTopic.load(PROGRAM_PATH + "/models/vanilla_deutsch")
+    pathToModel = os.path.join(PROGRAM_PATH + PATH_TO_MODEL_VANILLA_GERMAN).toString()
+    transformedModel = BERTopic.load(pathToModel)
     ShowTopics(transformedModel)
 
     # ShowTopics(transformedModel)
