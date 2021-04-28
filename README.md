@@ -16,3 +16,8 @@ pip install pytorch-nlp, pip install bertopic
 #Einrichtung ohne Anaconda auf Mac/Linux
 
 #Verwendung und Ausführung des Beispiel-Codes
+
+#Sammlung der Models
+Vanilla Model
+https://drive.google.com/drive/u/0/folders/1yLuXdentikQGQ0KJ_iNTOmShsxomchJI
+
