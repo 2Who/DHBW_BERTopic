@@ -21,7 +21,7 @@ def main():
     # transformedModel = TransformModel(csvDocument)
 
     # import an existing model
-    pathToModel = os.path.join(PROGRAM_PATH + PATH_TO_MODEL_VANILLA_GERMAN).toString()
+    pathToModel = os.path.join(PROGRAM_PATH + PATH_TO_MODEL_VANILLA_GERMAN)
     transformedModel = BERTopic.load(pathToModel)
     ShowTopics(transformedModel)
 
