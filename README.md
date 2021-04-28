@@ -15,7 +15,7 @@
 1.1.2 Erstellen der Environment mit dem .yml File:
   1. Conda Prompt öffen
   2. Zur .yml Datei navigieren
-  3. Environment erstellen - conda env create -f environment.yml
+  3. Environment erstellen - conda env create -f bert39nonvisual.yml
 
 #Einrichtung ohne Anaconda auf Mac/Linux
 
