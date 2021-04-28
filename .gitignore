@@ -131,6 +131,7 @@ dmypy.json
 .idea
 .DS_Store
 
-*.BERT
-
 /venv
+
+# models folder (contets to big)
+models/
