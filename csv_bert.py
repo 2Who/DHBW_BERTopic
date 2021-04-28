@@ -6,7 +6,6 @@ import time
 # from sklearn.datasets import fetch_20newsgroups
 print("import success")
 
-
 #--------------------------------------------------------
 # Constants
 #--------------------------------------------------------
