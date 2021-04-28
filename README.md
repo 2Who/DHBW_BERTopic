@@ -35,3 +35,5 @@ $ topics, probs = model.fit_transform(docs)
 Vanilla Model
 https://drive.google.com/drive/u/0/folders/1yLuXdentikQGQ0KJ_iNTOmShsxomchJI
 
+#Bert Model einbinden
+model = BERTopic.load("models/MODEL")
