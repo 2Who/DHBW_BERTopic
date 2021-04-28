@@ -10,7 +10,7 @@ print("import success")
 # Constants
 #--------------------------------------------------------
 PROGRAM_PATH = os.path.dirname(__file__)
-PATH_TO_MODEL_VANILLA_GERMAN = "/models/vanillaModel"
+PATH_TO_MODEL_VANILLA_GERMAN = "/models/VanillaModel"
 
 def main():
     # Old way to create document from 20newsgroups
