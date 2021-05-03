@@ -1,5 +1,10 @@
 # DHBW_BERTopic
 #Einleitung
+Im Zuge des Moduls "Neue Konzepte" an der DHBW Lörrach im Studiengang Informatik (TIF18A) soll das ML-Modell Bertopic optimiert werden.
+Hierzu sollen Knowledge-Graphen (KGE) verwendet werden, um das Topic Modelling zu verbessern.
+
+Im ersten Schritt soll ein lauffähiges Bert erarbeitet werden, während im zweiten Schritt verschiedene Knowledge Graphen integriert werden.
+Im dritten Schritt soll BERT schließlich mit dem entsprechenden KGE zusammenarbeiten und in einer Verbesserung des Topic Modellings resultieren.
 
 #Einrichtung mit Anaconda auf Windows
 
