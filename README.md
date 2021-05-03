@@ -3,7 +3,7 @@
 TODO: Projektvorstellung
  
 ## Einrichtung der Anaconda Environment auf Windows  
-Dokumentation zur Verwendung von [Conda Environments](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#)  
+[Dokumentation](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#) zur Verwendung von Conda Environments von conda.io  
 Manuelles Erstellen der Environment:  
   * Vorraussetzung: Microsoft C++ Build Tools sollte installiert sein, Python Komplett deinstallieren
   * Anaconda herunterladen
