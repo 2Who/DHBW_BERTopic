@@ -22,9 +22,9 @@ def main():
 
     # import an existing model
     pathToModel = os.path.join(PROGRAM_PATH + PATH_TO_MODEL_VANILLA_GERMAN)
-    # transformedModel = BERTopic.load("C:/Users/Niklas/Documents/DHBW_Lörrach/Semester_6/DHBW_BERTopic/models/VanillaModel")
     transformedModel = BERTopic.load(pathToModel)
     ShowTopics(transformedModel)
+    VisualizeModel(transformedModel)
 
     # ShowTopics(transformedModel)
     # VisualizeModel(transformedModel)
@@ -69,8 +69,10 @@ def ShowTopics(myModel):
     print(f"3rd topics: {myModel.get_topic(2)}")
     print(f"42nd topics: {myModel.get_topic(42)}")
 
+
 def VisualizeModel(myModel):
-    myModel.visualize_topics()
+    pt = myModel.visualize_topics()
+    pt.show()
 
 if __name__ == '__main__':
     main()

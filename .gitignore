@@ -138,3 +138,4 @@ models/
 
 # visual studio code settings
 .vscode/
+.vscode/settings.json
