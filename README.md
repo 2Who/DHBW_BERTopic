@@ -29,17 +29,11 @@ Version Python 3.7.1 oder höher benötigt.
 $ brew install bertopic
 
 ## Verwendung und Ausführung des Beispiel-Codes
-$ from bertopic import BERTopic
-
-$ import pandas as pd
-
-$ df = pd.read_csv('Trainingsdaten/data.csv', dtype=str)
-
-$ docs = df['body'].tolist()
-
-$ model = BERTopic(language="german")
-
-$ topics, probs = model.fit_transform(docs)
+  * Pfad zur python.exe eines Environemts in der Conda Prompt:
+  * activate myenv
+  * where python
+  * In der IDE den Interpreter ändern und die von conda angezeigte python.exe auswählen.
+  * Die Datei "test_code.py" in der IDE ausführen
 
 ### Sammlung der Models
 Vanilla Model
@@ -47,10 +41,4 @@ https://drive.google.com/drive/u/0/folders/1yLuXdentikQGQ0KJ_iNTOmShsxomchJI
 
 ### Bert Model einbinden
 model = BERTopic.load("models/MODEL")
-
-## Verwendung und Ausführung des Beispiel-Codes
-  * Pfad zur python.exe eines Environemts in der Conda Prompt:
-  * activate myenv
-  * where python
-  * In der IDE den Interpreter ändern und die von conda angezeigte python.exe auswählen.
 
