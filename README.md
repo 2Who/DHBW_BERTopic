@@ -5,15 +5,15 @@ TODO: Projektvorstellung
 ## Einrichtung der Anaconda Environment auf Windows  
 [Dokumentation](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#) zur Verwendung von Conda Environments von conda.io  
 Manuelles Erstellen der Environment:  
-  * Vorraussetzung: [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/de/visual-cpp-build-tools/) sollte installiert sein, Python Komplett deinstallieren
+  * Vorraussetzung: [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/de/visual-cpp-build-tools/) sollte installiert sein, Python komplett deinstallieren
   * Anaconda herunterladen
   * mit Anaconda ein Environment aufsetzen - conda create --name myenv
   * Environment aktivieren - conda activate myenv
   * pip installieren - conda install pip
-  * PATH Variablen einfügen (zur Sicherheit) - siehe Anhang
   * Packages und BERT installieren - pip install pytorch-transformers pytorch-nlp protobuf bertopic
 
 Erstellen der Environment mit dem .yml File:  
+  * [bertopic38.yml](https://github.com/2Who/DHBW_BERTopic/blob/main/bertopic38.yml) von Github downloaden
   * Conda Prompt öffen
   * Zur .yml Datei navigieren
   * Environment erstellen - conda env create -f bert39nonvisual.yml
