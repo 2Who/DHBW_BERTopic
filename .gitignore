@@ -128,10 +128,14 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# macOS integration
 .idea
 .DS_Store
-
 /venv
 
-# models folder (contets to big)
+# local models folder (contents too big)
 models/
+
+# visual studio code settings
+.vscode/
+.vscode/settings.json
