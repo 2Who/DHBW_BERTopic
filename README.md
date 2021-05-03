@@ -13,7 +13,7 @@ Manuelles Erstellen der Environment:
   * Packages und BERT installieren - pip install pytorch-transformers pytorch-nlp protobuf bertopic
 
 Erstellen der Environment mit dem .yml File:  
-  * [bertopic38.yml](https://github.com/2Who/DHBW_BERTopic/blob/main/bertopic38.yml) von Github downloaden
+  * bertopic38.yml vom Repository downloaden
   * Conda Prompt öffen
   * Zur .yml Datei navigieren
   * Environment erstellen - conda env create -f bert39nonvisual.yml
