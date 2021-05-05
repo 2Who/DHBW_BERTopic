@@ -3,38 +3,69 @@ import numpy as np
 import pandas as pd
 import os
 import time
-# from sklearn.datasets import fetch_20newsgroups
-print("import success")
+from sklearn.datasets import fetch_20newsgroups
 
 #--------------------------------------------------------
 # Constants
 #--------------------------------------------------------
 PROGRAM_PATH = os.path.dirname(__file__)
-PATH_TO_MODEL_VANILLA_GERMAN = "/models/VanillaModel"
+PATH_TO_MODEL_VANILLA = "/models/VanillaModel"
+PATH_TO_MODEL_MULTILINGUAL = "/models/MultilingualModel"
 
 def main():
+
+    listOfDatasets = ["VanillaModel", "MultilingualModel"]
+    listOfPrograms = ["ShowTopics", "VizualizeModel", "All"]
+    datasetToUse = -1
+    programToExecute = -1
+
+    while (datasetToUse > 2 or datasetToUse < 1):
+        datasetToUse = input("Welcher Datensatz soll verwendet werden?\n1: VanillaModel\n2: MultilingualModel\n")
+        try:
+            datasetToUse = int(datasetToUse)
+        except:
+            print("Bitte nur die genannten Zahlen eingeben!")
+
+    while (programToExecute > 3 or programToExecute < 1):
+        programToExecute = input(f"Was soll mit dem Datensatz {listOfDatasets[datasetToUse-1]} gemacht werden?\n1: ShowTopics\n2: VizualizeModel\n3: Both\n")
+        try:
+            programToExecute = int(programToExecute)
+        except:
+            print("Bitte nur die genannten Zahlen eingeben!")
+
+    if listOfDatasets[datasetToUse-1] == "VanillaModel":
+        pathToModel = os.path.join(PROGRAM_PATH + PATH_TO_MODEL_VANILLA)
+    elif listOfDatasets[datasetToUse-1] == "MultilingualModel":
+        pathToModel = os.path.join(PROGRAM_PATH + PATH_TO_MODEL_MULTILINGUAL)
+
+    transformedModel = BERTopic.load(pathToModel)
+
+    if listOfPrograms[programToExecute-1] == "ShowTopics":
+        ShowTopics(transformedModel)
+    elif listOfPrograms[programToExecute-1] == "VizualizeModel":
+        VisualizeModel(transformedModel)
+    elif listOfPrograms[programToExecute-1] == "All":
+        ShowTopics(transformedModel)
+        VisualizeModel(transformedModel)
+
     # Old way to create document from 20newsgroups
     # docs = fetch_20newsgroups(subset='test',  remove=('headers', 'footers', 'quotes'))['data']
 
-    # create a new model from scratch
+    # create a new model from scratch and save it
     # csvDocument = CreateDocFromCSV()
     # transformedModel = TransformModel(csvDocument)
-
-    # import an existing model
-    pathToModel = os.path.join(PROGRAM_PATH + PATH_TO_MODEL_VANILLA_GERMAN)
-    transformedModel = BERTopic.load(pathToModel)
-    ShowTopics(transformedModel)
-    VisualizeModel(transformedModel)
-
-    # ShowTopics(transformedModel)
-    # VisualizeModel(transformedModel)
+    # try:
+    #     transformedModel.save(PROGRAM_PATH + "\\models\\MultilingualModel")
+    #     print("Model saved")
+    # except Exception:
+    #     print(Exception)
 
 
 #--------------------------------------------------------
 #Helper Functions
 #--------------------------------------------------------
 def TransformModel(document):
-    bertModel = BERTopic()
+    bertModel = BERTopic(language="multilingual")
     print("going to transform")
     transformTime = time.perf_counter()
     try:
@@ -55,6 +86,7 @@ def CreateDocFromCSV():
 
     dataFrameComplete = pd.read_csv(pathToFile, dtype=str)
     dataFrameList = dataFrameComplete['body'].tolist()
+
     # converting all list entries to type string
     for x in range(0, len(dataFrameList)):
         dataFrameList[x] = str(dataFrameList[x])
