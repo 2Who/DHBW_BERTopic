@@ -39,6 +39,9 @@ $ brew install bertopic
 Vanilla Model
 https://drive.google.com/drive/u/0/folders/1yLuXdentikQGQ0KJ_iNTOmShsxomchJI
 
+Multilingual Model (Das sollte genommen werden)
+https://drive.google.com/drive/u/0/folders/1yLuXdentikQGQ0KJ_iNTOmShsxomchJI
+
 ### Bert Model einbinden
 model = BERTopic.load("models/MODEL")
 
