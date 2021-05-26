@@ -16,6 +16,7 @@ Manuelles Erstellen der Environment:
   * Environment aktivieren - conda activate myenv
   * pip installieren - conda install pip
   * Packages und BERT installieren - pip install pytorch-transformers pytorch-nlp protobuf bertopic
+  * conda install -c anaconda tk
 
 Erstellen der Environment mit dem .yml File:  
   * bertopic38.yml vom Repository downloaden
