@@ -1,9 +1,13 @@
+print("loading imports")
 from bertopic import BERTopic
 import numpy as np
 import pandas as pd
 import os
 import time
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
 from sklearn.datasets import fetch_20newsgroups
+print("finished loading")
 
 # --------------------------------------------------------
 # Constants
@@ -14,43 +18,18 @@ PATH_TO_MODEL_MULTILINGUAL = "/models/MultilingualModel"
 
 
 def main():
-    list_of_datasets = ["VanillaModel", "MultilingualModel"]
-    list_of_programs = ["ShowTopics", "VizualizeModel", "Both"]
-    dataset_to_use = -1
-    program_to_execute = -1
+    list_of_models = ["VanillaModel", "MultilingualModel", "CustomModel"]
+    dict_of_models = {"VanillaModel": PATH_TO_MODEL_VANILLA,
+                      "MultilingualModel": PATH_TO_MODEL_MULTILINGUAL,
+                      "CustomModel": None}
+    list_of_programs = ["ShowTopics", "VisualizeModel", "Both"]
 
-    while dataset_to_use > len(list_of_datasets) or dataset_to_use < 1:
-        dataset_to_use = input(
-            f"Welcher Datensatz soll verwendet werden?"
-            f"\n1: {list_of_datasets[0]}\n2: {list_of_datasets[1]}\n")
-        try:
-            dataset_to_use = int(dataset_to_use)
-        except:
-            print("Bitte nur die genannten Zahlen eingeben!")
-
-    while program_to_execute > len(list_of_programs) or program_to_execute < 1:
-        program_to_execute = input(
-            f"Was soll mit dem Datensatz {list_of_datasets[dataset_to_use - 1]} gemacht werden?"
-            f"\n1: {list_of_programs[0]}\n2: {list_of_programs[1]}\n3: {list_of_programs[2]}\n")
-        try:
-            program_to_execute = int(program_to_execute)
-        except:
-            print("Bitte nur die genannten Zahlen eingeben!")
-
-    if list_of_datasets[dataset_to_use - 1] == list_of_datasets[0]:
-        path_to_model = os.path.join(PROGRAM_PATH + PATH_TO_MODEL_VANILLA)
-    elif list_of_datasets[dataset_to_use - 1] == list_of_datasets[1]:
-        path_to_model = os.path.join(PROGRAM_PATH + PATH_TO_MODEL_MULTILINGUAL)
-
-    transformed_model = BERTopic.load(path_to_model)
-
-    if list_of_programs[program_to_execute - 1] == list_of_programs[0]:
-        show_topics(transformed_model)
-    elif list_of_programs[program_to_execute - 1] == list_of_programs[1]:
-        visualize_model(transformed_model)
-    elif list_of_programs[program_to_execute - 1] == list_of_datasets[2]:
-        show_topics(transformed_model)
-        visualize_model(transformed_model)
+    index_of_model = get_options_index(list_of_models, "Which dataset should be used?")
+    name_of_model = list_of_models[index_of_model]
+    transformed_model = load_model(dict_of_models[name_of_model])
+    
+    index_of_program = get_options_index(list_of_programs, "Which program do you want to execute?")
+    execute_chosen_program(index_of_program, transformed_model)
 
     # Old way to create document from 20newsgroups
     # docs = fetch_20newsgroups(subset='test',  remove=('headers', 'footers', 'quotes'))['data']
@@ -68,10 +47,67 @@ def main():
 # --------------------------------------------------------
 # Helper Functions
 # --------------------------------------------------------
+def execute_chosen_program(index_of_program, transformed_model):
+    if index_of_program == 0:
+        show_topics(transformed_model)
+    elif index_of_program == 1:
+        visualize_model(transformed_model)
+    elif index_of_program == 2:
+        show_topics(transformed_model)
+        visualize_model(transformed_model)
+
+
+def build_question(my_list, question):
+    question_string = question + "\n"
+    for index in range(len(my_list)):
+        question_string += str(index) + ": " + str(my_list[index]) + "\n"
+
+    return question_string
+
+
+def get_options_index(my_list, question):
+    index = -1
+    while index > len(my_list) - 1 or index < 0:
+        question_string = build_question(my_list, question)
+        index = input(question_string)
+
+        try:
+            index = int(index)
+        except:
+            print("Please only enter the numbers from above!")
+    return index
+
+
+def load_model(model_name):
+    if model_name is not None:
+        path_to_model = os.path.join(PROGRAM_PATH + model_name)
+    else:
+        path_to_model = get_custom_model()
+        path_to_model = os.path.normpath(path_to_model)
+
+    try:
+        transformed_model = BERTopic.load(path_to_model)
+    except:
+        print("No model was selected.\nProgram is shutting down.")
+        quit()
+
+    print("model was loaded")
+    return transformed_model
+
+
+def get_custom_model():
+    root = Tk()
+    root.focus_set()
+    path_to_model = askopenfilename(parent=root)
+    root.destroy()
+    return path_to_model
+
+
 def transform_model(document):
     bert_model = BERTopic(language="multilingual")
     print("going to transform")
     transform_time = time.perf_counter()
+
     try:
         topics, _ = bert_model.fit_transform(document)
         transform_time = time.perf_counter() - transform_time
@@ -87,15 +123,14 @@ def transform_model(document):
 
 def create_coc_from_csv():
     # reading from csv file
-    path_to_file = os.path.join(PROGRAM_PATH + "/", "Trainingsdaten" + "/", "data.csv")
+    path_to_model = os.path.join(PROGRAM_PATH + "/", "Trainingsdaten" + "/", "data.csv")
 
-    data_frame_complete = pd.read_csv(path_to_file, dtype=str)
+    data_frame_complete = pd.read_csv(path_to_model, dtype=str)
     data_frame_list = data_frame_complete['body'].tolist()
 
     # converting all list entries to type string
     for x in range(0, len(data_frame_list)):
         data_frame_list[x] = str(data_frame_list[x])
-    # docs = list(df.loc['url', 'title', 'pub_date', 'lead', 'body', 'crawl_date', 'language', 'images', 'tags', 'source', 'elastic_id', 'authors', 'number_of_comments', 'sections', 'edition', 'pub_date_short', 'year_month'].values)
     print("document created")
     return data_frame_list
 
