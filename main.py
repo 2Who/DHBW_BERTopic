@@ -5,106 +5,113 @@ import os
 import time
 from sklearn.datasets import fetch_20newsgroups
 
-#--------------------------------------------------------
+# --------------------------------------------------------
 # Constants
-#--------------------------------------------------------
+# --------------------------------------------------------
 PROGRAM_PATH = os.path.dirname(__file__)
 PATH_TO_MODEL_VANILLA = "/models/VanillaModel"
 PATH_TO_MODEL_MULTILINGUAL = "/models/MultilingualModel"
 
+
 def main():
+    list_of_datasets = ["VanillaModel", "MultilingualModel"]
+    list_of_programs = ["ShowTopics", "VizualizeModel", "Both"]
+    dataset_to_use = -1
+    program_to_execute = -1
 
-    listOfDatasets = ["VanillaModel", "MultilingualModel"]
-    listOfPrograms = ["ShowTopics", "VizualizeModel", "All"]
-    datasetToUse = -1
-    programToExecute = -1
-
-    while (datasetToUse > 2 or datasetToUse < 1):
-        datasetToUse = input("Welcher Datensatz soll verwendet werden?\n1: VanillaModel\n2: MultilingualModel\n")
+    while dataset_to_use > len(list_of_datasets) or dataset_to_use < 1:
+        dataset_to_use = input(
+            f"Welcher Datensatz soll verwendet werden?"
+            f"\n1: {list_of_datasets[0]}\n2: {list_of_datasets[1]}\n")
         try:
-            datasetToUse = int(datasetToUse)
+            dataset_to_use = int(dataset_to_use)
         except:
             print("Bitte nur die genannten Zahlen eingeben!")
 
-    while (programToExecute > 3 or programToExecute < 1):
-        programToExecute = input(f"Was soll mit dem Datensatz {listOfDatasets[datasetToUse-1]} gemacht werden?\n1: ShowTopics\n2: VizualizeModel\n3: Both\n")
+    while program_to_execute > len(list_of_programs) or program_to_execute < 1:
+        program_to_execute = input(
+            f"Was soll mit dem Datensatz {list_of_datasets[dataset_to_use - 1]} gemacht werden?"
+            f"\n1: {list_of_programs[0]}\n2: {list_of_programs[1]}\n3: {list_of_programs[2]}\n")
         try:
-            programToExecute = int(programToExecute)
+            program_to_execute = int(program_to_execute)
         except:
             print("Bitte nur die genannten Zahlen eingeben!")
 
-    if listOfDatasets[datasetToUse-1] == "VanillaModel":
-        pathToModel = os.path.join(PROGRAM_PATH + PATH_TO_MODEL_VANILLA)
-    elif listOfDatasets[datasetToUse-1] == "MultilingualModel":
-        pathToModel = os.path.join(PROGRAM_PATH + PATH_TO_MODEL_MULTILINGUAL)
+    if list_of_datasets[dataset_to_use - 1] == list_of_datasets[0]:
+        path_to_model = os.path.join(PROGRAM_PATH + PATH_TO_MODEL_VANILLA)
+    elif list_of_datasets[dataset_to_use - 1] == list_of_datasets[1]:
+        path_to_model = os.path.join(PROGRAM_PATH + PATH_TO_MODEL_MULTILINGUAL)
 
-    transformedModel = BERTopic.load(pathToModel)
+    transformed_model = BERTopic.load(path_to_model)
 
-    if listOfPrograms[programToExecute-1] == "ShowTopics":
-        ShowTopics(transformedModel)
-    elif listOfPrograms[programToExecute-1] == "VizualizeModel":
-        VisualizeModel(transformedModel)
-    elif listOfPrograms[programToExecute-1] == "All":
-        ShowTopics(transformedModel)
-        VisualizeModel(transformedModel)
+    if list_of_programs[program_to_execute - 1] == list_of_programs[0]:
+        show_topics(transformed_model)
+    elif list_of_programs[program_to_execute - 1] == list_of_programs[1]:
+        visualize_model(transformed_model)
+    elif list_of_programs[program_to_execute - 1] == list_of_datasets[2]:
+        show_topics(transformed_model)
+        visualize_model(transformed_model)
 
     # Old way to create document from 20newsgroups
     # docs = fetch_20newsgroups(subset='test',  remove=('headers', 'footers', 'quotes'))['data']
 
     # create a new model from scratch and save it
     # csvDocument = CreateDocFromCSV()
-    # transformedModel = TransformModel(csvDocument)
+    # transformed_model = TransformModel(csvDocument)
     # try:
-    #     transformedModel.save(PROGRAM_PATH + "\\models\\MultilingualModel")
+    #     transformed_model.save(PROGRAM_PATH + "\\models\\MultilingualModel")
     #     print("Model saved")
     # except Exception:
     #     print(Exception)
 
 
-#--------------------------------------------------------
-#Helper Functions
-#--------------------------------------------------------
-def TransformModel(document):
-    bertModel = BERTopic(language="multilingual")
+# --------------------------------------------------------
+# Helper Functions
+# --------------------------------------------------------
+def transform_model(document):
+    bert_model = BERTopic(language="multilingual")
     print("going to transform")
-    transformTime = time.perf_counter()
+    transform_time = time.perf_counter()
     try:
-        topics, _ = bertModel.fit_transform(document)
-        transformTime = time.perf_counter() - transformTime
-        transformTime = transformTime / 60
-        print(f"Transformation success! Duration:{transformTime:0.4f} minutes")
+        topics, _ = bert_model.fit_transform(document)
+        transform_time = time.perf_counter() - transform_time
+        transform_time = transform_time / 60
+        print(f"Transformation success! Duration:{transform_time:0.4f} minutes")
     except Exception:
         print(Exception)
-        transformTime = time.perf_counter() - transformTime
-        transformTime = transformTime / 60
-        print(f"Transformation failed! Duration:{transformTime:0.4f} minutes")
-    return bertModel
+        transform_time = time.perf_counter() - transform_time
+        transform_time = transform_time / 60
+        print(f"Transformation failed! Duration:{transform_time:0.4f} minutes")
+    return bert_model
 
-def CreateDocFromCSV():
+
+def create_coc_from_csv():
     # reading from csv file
-    pathToFile = os.path.join(PROGRAM_PATH + "/", "Trainingsdaten" + "/", "data.csv")
+    path_to_file = os.path.join(PROGRAM_PATH + "/", "Trainingsdaten" + "/", "data.csv")
 
-    dataFrameComplete = pd.read_csv(pathToFile, dtype=str)
-    dataFrameList = dataFrameComplete['body'].tolist()
+    data_frame_complete = pd.read_csv(path_to_file, dtype=str)
+    data_frame_list = data_frame_complete['body'].tolist()
 
     # converting all list entries to type string
-    for x in range(0, len(dataFrameList)):
-        dataFrameList[x] = str(dataFrameList[x])
+    for x in range(0, len(data_frame_list)):
+        data_frame_list[x] = str(data_frame_list[x])
     # docs = list(df.loc['url', 'title', 'pub_date', 'lead', 'body', 'crawl_date', 'language', 'images', 'tags', 'source', 'elastic_id', 'authors', 'number_of_comments', 'sections', 'edition', 'pub_date_short', 'year_month'].values)
     print("document created")
-    return dataFrameList
-
-def ShowTopics(myModel):
-    print(myModel.get_topic_freq().head())
-    print(myModel.get_topic_freq())
-    print(f"1st topics: {myModel.get_topic(0)}") 
-    print(f"3rd topics: {myModel.get_topic(2)}")
-    print(f"42nd topics: {myModel.get_topic(42)}")
+    return data_frame_list
 
 
-def VisualizeModel(myModel):
-    pt = myModel.visualize_topics()
+def show_topics(my_model):
+    print(my_model.get_topic_freq().head())
+    print(my_model.get_topic_freq())
+    print(f"1st topics: {my_model.get_topic(0)}")
+    print(f"3rd topics: {my_model.get_topic(2)}")
+    print(f"42nd topics: {my_model.get_topic(42)}")
+
+
+def visualize_model(my_model):
+    pt = my_model.visualize_topics()
     pt.show()
+
 
 if __name__ == '__main__':
     main()
