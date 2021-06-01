@@ -1,0 +1,18 @@
+In diesem Ordner befinden sich einige Zwischenergebnisse von den verschiedenen Operationen auf den Modellen im Google Drive.
+
+topics
+	Enthält das Ergebniss von fit_transform von der Berechnung des MultilingualModel. Kann mit exec(file.read()) wieder als Variable in eine Python Umgebung geladen werden.
+Topics.csv
+	Die Topics des MultilingualModel als einfach lesbare CSV
+topics_auto
+	Enthält das Ergebniss von reduce_topics(auto).
+TopicsReducedAuto.csv
+	Die Topics des MultilingualReducedAuto Models als einfach lesbare CSV
+topics_over_time
+	Sämtliche Topics vom MultilingualModel mit den pub_date_short Werten als Timeline
+topics_over_time_reduced
+	Sämtliche Topics aus dem MultilingualReducedAuto Model als Timeline
+topics_per_class
+	Sämtliche Topics aus dem MultilingualReducedAuto Model nach Quellen aufgeteilt
+
+Die CSV Dateien mit Python Namen sind Pandas Dataframes und können als diese eingelesen werden. Mit den Modellen aus Googgle Drive und den Instruktionen auf der Website https://maartengr.github.io/BERTopic/tutorial/topicreduction/topicreduction.html können die Visualisierungen ohne eigenen Rechenaufwand reproduziert werden.
